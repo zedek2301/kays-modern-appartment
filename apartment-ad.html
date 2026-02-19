@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kays Modern Appartments — Find Your Next Home</title>
+  <meta name="description" content="Stylish apartment listings with photos, details and contact form." />
+  <style>
+    :root{--accent:#2b8cff;--muted:#6b7280;--card:#ffffff;--bg:#f6f8fb;--radius:12px}
+    *{box-sizing:border-box}
+    body{font-family:Inter,Segoe UI,Roboto,Arial,Helvetica,sans-serif;margin:0;background:var(--bg);color:#0f172a}
+    header{background:linear-gradient(90deg,#ffffff 0%,#f8fafc 100%);padding:28px 20px;border-bottom:1px solid #e6eef8}
+    .container{max-width:1100px;margin:0 auto}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#00d4ff);display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+    h1{margin:0;font-size:1.25rem}
+    p.lead{margin:6px 0 0;color:var(--muted)}
+
+    .hero{padding:28px 20px}
+    .hero-grid{display:flex;gap:20px;align-items:center}
+    .hero-info{flex:1}
+    .search{display:flex;gap:10px;margin-top:14px}
+    .search input,.search select{padding:12px;border-radius:10px;border:1px solid #e6eef8;background:white;flex:1}
+    .search button{background:var(--accent);color:white;padding:12px 18px;border-radius:10px;border:0;cursor:pointer}
+
+    .listings{padding:20px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:0 6px 22px rgba(16,24,40,0.06);border:1px solid rgba(15,23,42,0.04)}
+    .card img{width:100%;height:180px;object-fit:cover;display:block}
+    .card-body{padding:14px}
+    .meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .title{font-weight:600}
+    .price{color:var(--accent);font-weight:700}
+    .specs{display:flex;gap:10px;color:var(--muted);font-size:0.95rem;margin-top:10px}
+    .badge{background:#f1f5f9;padding:6px 8px;border-radius:8px;font-size:0.85rem}
+
+    footer{padding:20px;text-align:center;color:var(--muted);font-size:0.9rem}
+
+    /* Modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.45);display:none;align-items:center;justify-content:center;padding:20px}
+    .modal{background:white;border-radius:12px;max-width:680px;width:100%;padding:18px}
+    .modal h3{margin-top:0}
+    .form-row{display:flex;gap:10px}
+    .form-row input{flex:1;padding:10px;border-radius:8px;border:1px solid #e6eef8}
+    .btn{background:var(--accent);color:white;padding:10px 14px;border-radius:8px;border:0;cursor:pointer}
+
+    /* Responsive */
+    @media (max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:640px){.hero-grid{flex-direction:column;align-items:flex-start}.grid{grid-template-columns:1fr}.card img{height:160px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="brand">
+        <div class="logo">KA</div>
+        <div>
+          <h1>Kays Modern Appartments</h1>
+          <p class="lead">Comfortable, convenient, and carefully curated listings.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-info">
+          <h2 style="margin:0 0 8px 0">Find your next apartment</h2>
+          <p class="lead">Browse featured apartments with photos, pricing, and quick contact.</p>
+
+          <div class="search" role="search" aria-label="Find apartments">
+            <input id="q" type="text" placeholder="City, neighborhood or ZIP" />
+            <select id="beds"><option value="">Any beds</option><option>1 bed</option><option>2 beds</option><option>3+ beds</option></select>
+            <button id="searchBtn">Search</button>
+          </div>
+        </div>
+        <div style="min-width:260px;display:flex;justify-content:flex-end;align-items:center">
+          <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=__" alt="apartment" style="width:260px;height:160px;object-fit:cover;border-radius:12px;box-shadow:0 8px 30px rgba(11,22,60,0.08)"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="listings">
+    <div class="container">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <h3 style="margin:0">Featured Listings</h3>
+        <div style="display:flex;gap:8px;align-items:center">
+          <div class="badge">Showing 6 results</div>
+        </div>
+      </div>
+
+      <div class="grid" id="listingsGrid">
+        <!-- Card 1 -->
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=__" alt="Bright 1-bedroom living room"/>
+          <div class="card-body">
+            <div class="meta"><div class="title">Bright 1-Bedroom — Downtown</div><div class="price">K1,450/mo</div></div>
+            <div style="color:var(--muted);font-size:0.95rem">1 bed • 1 bath • 650 sqft</div>
+            <div class="specs">
+              <div>Furnished</div>
+              <div>Pets: Case-by-case</div>
+              <div><button class="btn" onclick="openContact('Bright 1-Bedroom — Downtown', 1450)">Contact</button></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1628605106481-4c33f12a3e25?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=__" alt="Modern kitchen"/>
+          <div class="card-body">
+            <div class="meta"><div class="title">Spacious 2-Bedroom with Balcony</div><div class="price">K2,100/mo</div></div>
+            <div style="color:var(--muted);font-size:0.95rem">2 beds • 2 baths • 980 sqft</div>
+            <div class="specs">
+              <div>Parking</div>
+              <div>Gym Access</div>
+              <div><button class="btn" onclick="openContact('Spacious 2-Bedroom with Balcony', 2100)">Contact</button></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1572120360610-d971b9b4a2a7?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=__" alt="Cozy studio"/>
+          <div class="card-body">
+            <div class="meta"><div class="title">Cozy Studio — Walkable Locale</div><div class="price">K1,050/mo</div></div>
+            <div style="color:var(--muted);font-size:0.95rem">Studio • 1 bath • 420 sqft</div>
+            <div class="specs">
+              <div>All Utilities Included</div>
+              <div>Short-Term OK</div>
+              <div><button class="btn" onclick="openContact('Cozy Studio — Walkable Locale', 1050)">Contact</button></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1600585154298-3ac1b1b8b4b5?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=__" alt="Loft interior"/>
+          <div class="card-body">
+            <div class="meta"><div class="title">Industrial Loft — High Ceilings</div><div class="price">K2,700/mo</div></div>
+            <div style="color:var(--muted);font-size:0.95rem">1 bed • 1.5 baths • 1,150 sqft</div>
+            <div class="specs">
+              <div>Washer/Dryer</div>
+              <div>Rooftop Lounge</div>
+              <div><button class="btn" onclick="openContact('Industrial Loft — High Ceilings', 2700)">Contact</button></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1598928506310-7f531d5a6c13?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=__" alt="Family-friendly apartment"/>
+          <div class="card-body">
+            <div class="meta"><div class="title">3-Bed Family Apartment</div><div class="price">K3,200/mo</div></div>
+            <div style="color:var(--muted);font-size:0.95rem">3 beds • 2 baths • 1,450 sqft</div>
+            <div class="specs">
+              <div>Near Parks</div>
+              <div>School District A+</div>
+              <div><button class="btn" onclick="openContact('3-Bed Family Apartment', 3200)">Contact</button></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1505691723518-36a5b7ae8f6f?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=__" alt="Luxury penthouse"/>
+          <div class="card-body">
+            <div class="meta"><div class="title">Luxury Penthouse — Skyline Views</div><div class="price">K5,800/mo</div></div>
+            <div style="color:var(--muted);font-size:0.95rem">3 beds • 3 baths • 2,300 sqft</div>
+            <div class="specs">
+              <div>Private Elevator</div>
+              <div>Concierge</div>
+              <div><button class="btn" onclick="openContact('Luxury Penthouse — Skyline Views', 5800)">Contact</button></div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </main>
+
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button style="float:right;border:0;background:none;font-size:18px;cursor:pointer" onclick="closeModal()">✕</button>
+      <h3 id="modalTitle">Contact about listing</h3>
+      <p id="listingInfo" style="color:var(--muted)"></p>
+
+      <form id="contactForm" onsubmit="submitForm(event)">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <input id="name" type="text" placeholder="Your name" required />
+          <input id="email" type="email" placeholder="Email address" required />
+          <div class="form-row">
+            <input id="phone" type="tel" placeholder="Phone (optional)" />
+            <input id="budget" type="text" placeholder="Budget (e.g. K2,000)" />
+          </div>
+          <textarea id="message" rows="4" placeholder="Message (move-in date, questions...)" style="padding:10px;border-radius:8px;border:1px solid #e6eef8"></textarea>
+          <div style="display:flex;gap:10px;justify-content:flex-end">
+            <button type="button" onclick="closeModal()" style="background:#eef2ff;color:#0f172a;padding:10px 14px;border-radius:8px;border:0;cursor:pointer">Cancel</button>
+            <button class="btn" type="submit">Send</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">© <strong>Modern Apartments</strong> — Photos are samples. Replace with your own images and details.</div>
+  </footer>
+
+  <script>
+    const modal = document.getElementById('modalBackdrop');
+    const listingInfo = document.getElementById('listingInfo');
+    let currentListing = null;
+
+    function openContact(title, price){
+      currentListing = {title, price};
+      listingInfo.textContent = `${title} — K${price}/mo`;
+      modal.style.display = 'flex';
+      document.getElementById('name').focus();
+    }
+    function closeModal(){
+      modal.style.display = 'none';
+      document.getElementById('contactForm').reset();
+      currentListing = null;
+    }
+
+    function submitForm(e){
+      e.preventDefault();
+      const data = {
+        listing: currentListing,
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        budget: document.getElementById('budget').value,
+        message: document.getElementById('message').value,
+      };
+
+      // For demo: open mailto with prefilled subject (real apps should POST to a server)
+      const subject = encodeURIComponent(`Inquiry: ${data.listing?.title} — ${data.name}`);
+      const body = encodeURIComponent(`Name: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\nBudget: ${data.budget}\n\nMessage:\n${data.message}`);
+      window.location.href = `mailto:leasing@example.com?subject=${subject}&body=${body}`;
+      closeModal();
+    }
+
+    // Basic search filter (client-side demo)
+    document.getElementById('searchBtn').addEventListener('click', () => {
+      const q = document.getElementById('q').value.toLowerCase().trim();
+      const items = document.querySelectorAll('#listingsGrid .card');
+      items.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = text.includes(q) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
